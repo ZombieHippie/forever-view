@@ -2,8 +2,7 @@ require 'colors'
 exports.config = null
 sys = require 'sys'
 exec = require('child_process').exec
-
-
+fs = require 'fs'
 exports.process = (title,options) ->
 	cfg = exports.config
 	startDate = new Date()
@@ -17,13 +16,23 @@ exports.process = (title,options) ->
 		--directio=true
 		--debug
 		--decrypt
+		--noscan
 		--minlength=#{cfg.minlength}
-		mkv disc:#{cfg.driveletter}
-		"#{title}"
-		"#{cfg.mkvoutput}\\#{title}"
+		mkv
+		disc:#{cfg.driveindex}
+		all
+		"#{cfg.mkvoutput}/#{title}"
 	""".replace /\n/g, ' '
+	
+	try
+		fs.statSync "#{cfg.mkvoutput}/#{title}"
+	catch err
+		fs.mkdirSync "#{cfg.mkvoutput}/#{title}"
+		console.log "mkdir:"+"#{cfg.mkvoutput}/#{title}".green
+
+
 	console.log '\n New Process Started With the command:'.grey
-	console.log c.blue.bold
+	console.log '\n'+c.bold.cyan+'\n'
 	exec c, (err, stdout, stderr)->
 		if err
 			console.error err
