@@ -1,5 +1,9 @@
 makemkvcon: "C:/Program Files (x86)/MakeMKV/makemkvcon.exe"
 movielist: "./movies.cson"
 mkvoutput: "C:/Downloads"
-minlength: 120
+minlength: 1100 #18min
 driveindex: 0
+fromemail: "big.juicy.snot.bubble@gmail.com"
+frompassword: "Zd?9dB&[KN46Pqp"
+toemail: "msgzht@gmail.com"
+tests: ['exec','mkdir']
